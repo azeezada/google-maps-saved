@@ -1,0 +1,171 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9987795,
+          40.7292590
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-11-06T02:07:03.868249Z",
+        "five_star_rating_published": 5,
+        "google_maps_url": "https://www.google.com/maps/place//data=!4m2!3m1!1s0x0:0xdb60fde50f8e2079",
+        "location": {
+          "address": "228 Thompson St, New York, NY 10012, United States",
+          "country_code": "US",
+          "name": "Yum Cha Chinese Kitchen & Bar 姑苏里"
+        },
+        "questions": [
+          {
+            "question": "Food",
+            "rating": 5
+          },
+          {
+            "question": "Service",
+            "rating": 5
+          },
+          {
+            "question": "Atmosphere",
+            "rating": 5
+          }
+        ]
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -86.8054827,
+          21.2436202
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-05-10T00:47:05.983704Z",
+        "five_star_rating_published": 5,
+        "google_maps_url": "https://www.google.com/maps/place//data=!4m2!3m1!1s0x0:0x721f14ebb60c9011",
+        "location": {
+          "address": "Prolongación Bonampak S/N Mz. 1 Lt.10 Sm. 3 Condominio Playa Mujeres Sm. 3 Condominio Playa Mujeres, 77400 Q.R., Mexico",
+          "country_code": "MX",
+          "name": "Excellence Playa Mujeres"
+        },
+        "questions": [
+          {
+            "question": "Trip type",
+            "selected_option": "Vacation"
+          },
+          {
+            "question": "Travel group",
+            "selected_option": "Family"
+          },
+          {
+            "question": "Rooms",
+            "rating": 4
+          },
+          {
+            "question": "Service",
+            "rating": 5
+          },
+          {
+            "question": "Location",
+            "rating": 5
+          },
+          {
+            "question": "Hotel highlights",
+            "selected_options": [
+              "Luxury"
+            ]
+          }
+        ],
+        "review_text_published": "Incredible service!"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9761960,
+          40.7446589
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2023-12-07T22:32:38.905188Z",
+        "five_star_rating_published": 5,
+        "google_maps_url": "https://www.google.com/maps/place//data=!4m2!3m1!1s0x0:0x1548774286fe831f",
+        "location": {
+          "address": "619 2nd Ave, New York, NY 10016, United States",
+          "country_code": "US",
+          "name": "Classic barbershop 5 NYC"
+        },
+        "review_text_published": "Good."
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.2017531,
+          42.5334038
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-05-06T21:52:36.606306Z",
+        "five_star_rating_published": 5,
+        "google_maps_url": "https://www.google.com/maps/place//data=!4m2!3m1!1s0x0:0x3d6738de6ce92b48",
+        "location": {
+          "address": "33273 Woodward Ave, Birmingham, MI 48009, United States",
+          "name": "Tech Bench of Birmingham"
+        },
+        "review_text_published": "Great service. Would recommend."
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.1838968,
+          42.5598057
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2020-11-04T02:58:23.279830Z",
+        "five_star_rating_published": 4,
+        "google_maps_url": "https://www.google.com/maps/place//data=!4m2!3m1!1s0x0:0x15df077104a47e5e",
+        "location": {
+          "address": "2800 W Big Beaver Rd, Troy, MI 48084, United States",
+          "country_code": "US",
+          "name": "Somerset Collection"
+        },
+        "review_text_published": "@Alexandra Awada\n\nLet's say, hypothetically, that you and I are classmates in Mall Shopping 101. And now let's say that we're about to take our final. You forgot to bring a pencil, so you turn to me and ask to 'borrow' a pencil. Ok, so you want ME to spend MY hard earned money just so you can take your exam. That’s in fact communism! Now I love my country, which means that I don’t support communism. Of course you might claim that it’s not That Big of A Deal to lend you a pencil for the duration of the exam. False.\n\nLet's say in this hypothetical scenario I had only brought 1 back-up pencil. If my pencil happens to break in the middle of the exam, then my having lent you my pencil would clearly be detrimental to my ability to complete said exam. Let's say hypothetically, that this final is worth 20% of our final grade. Now that we’ve established that, we know that lending you my pencil would mean me sacrificing a full 10% of my final grade.\n\nAdditionally, since we have established that you have forgotten your pencil even though the date for the final has been posted since the start of the semester, we can reasonably conclude that I am better prepared for this exam than you are. Therefore it is also reasonable to assume that I would finish the exam long before you would. Let's say in this hypothetical that I also have other finals to prepare for. As a result, it would be in my best interest to return to studying for those exams as soon as possible. However, you are still struggling with your final, thus you are still monopolizing my hard-earned pencil. Ok, so now you want ME to spend MY valuable studying time waiting for you to finish so I can reclaim MY property.\n\nThis would all mean that in all scenarios, me lending you my pencil could lead to my academic performance suffering. It is not in my best interest to suffer consequences for YOUR incompetence Alexandra.\n\nThis is why your review of Somerset being 1 star is wrong."
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4663064,
+          42.7308162
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2018-10-28T08:12:01.450313Z",
+        "five_star_rating_published": 5,
+        "google_maps_url": "https://www.google.com/maps/place//data=!4m2!3m1!1s0x0:0x491d8a35f6811b54",
+        "location": {
+          "address": "1219 E Grand River Ave, East Lansing, MI 48823, United States",
+          "country_code": "US",
+          "name": "Conrad's Grill"
+        },
+        "review_text_published": "It was good. Get a wrap"
+      },
+      "type": "Feature"
+    }
+  ]
+}

@@ -1,0 +1,354 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -83.202946,
+          42.6478951
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "3584 Sleepy Fox Dr, Rochester Hills, MI 48309, United States",
+        "name": "Home"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9783556,
+          40.7517259
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "120 Park Ave, New York, NY 10017, United States",
+        "name": "Work"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.910697,
+          40.778372
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "2129 28th St, Queens, NY 11105, United States",
+        "name": "eashan"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.0720841,
+          42.562448499999995
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "36605 Carriage Dr, Sterling Heights, MI 48310, USA",
+        "name": "thai"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.09125929999999,
+          42.5891817
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "4736 Holland Dr, Troy, MI 48085, United States",
+        "name": "murali"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -87.64932309999999,
+          41.9349451
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "2910 N Halsted St, Chicago, IL 60657, United States",
+        "name": "thomas"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.1879132,
+          42.573063
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "3811 Coolidge Hwy, Troy, MI 48084, United States",
+        "name": "jafet"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.8927138,
+          40.7557263
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "32-41 74th St., Flushing, NY 11370, United States",
+        "name": "jackie"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.999944,
+          40.729752
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "224 Sullivan St, New York, NY 10012, United States",
+        "name": "ibe"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.91514529999999,
+          40.7718482
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "31-12 24th Ave, Astoria, NY 11102, United States",
+        "name": "gabbie"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.1005924,
+          42.6065395
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "5960 Cliffside Dr, Troy, MI 48085, USA",
+        "name": "home2"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9938901,
+          40.7629393
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "516 W 47th St, New York, NY 10036, United States",
+        "name": "murali"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9994923,
+          40.7396476
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "205 W 15th St, New York, NY 10011, United States",
+        "name": "fh"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.98439359999999,
+          40.780429
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "277 West End Ave #1b, New York, NY 10023, USA",
+        "name": "dermatologist 01/23 8:30am"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.724155,
+          42.296009999999995
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "1700 Broadway St, Ann Arbor, MI 48105, USA",
+        "name": "the boys ann arbor"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.1146533,
+          42.6764097
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "961 River Mist Dr, Rochester, MI 48307, USA",
+        "name": "Rami's House"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.0895453,
+          42.6450057
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "sara"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -14.452361999999999,
+          14.497401
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "Senegal",
+        "name": "uwu"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9927835,
+          40.7550976
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "320 W 38th St, New York, NY 10018, United States",
+        "name": "sahil"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9832413,
+          40.7318584
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "333 E 14th St, New York, NY 10003, United States",
+        "name": "ibe"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.731141,
+          42.2944744
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "1552 Jones Dr, Ann Arbor, MI 48105, USA",
+        "name": "ann arbor apartment "
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9630067,
+          40.7589525
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "348 E 58th St #1c, New York, NY 10022, USA",
+        "name": "murali"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.10231089999999,
+          42.5213749
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "31101 Edward Ave, Madison Heights, MI 48071, USA",
+        "name": "nana"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -87.66640939999999,
+          41.8954241
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "1518 W Superior St, Chicago, IL 60642, United States",
+        "name": "3 Musketeers "
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.98709099999999,
+          40.766620599999996
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "address": "The Nicole, 400 W 55th St, New York, NY 10019, United States",
+        "name": "Apartment "
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

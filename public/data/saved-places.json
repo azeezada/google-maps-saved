@@ -1,0 +1,738 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9888515,
+          40.7455382
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2026-03-12T01:55:44Z",
+        "google_maps_url": "http://maps.google.com/?cid=3449939815069412470",
+        "location": {
+          "address": "25 W 28th St Top Floor, New York, NY 10001, United States",
+          "country_code": "US",
+          "name": "Nubeluz"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -77.0481079,
+          38.8975900
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-07-14T02:21:17Z",
+        "google_maps_url": "http://maps.google.com/?cid=5958599348214386603",
+        "location": {
+          "address": "2135 F St NW, Washington, DC 20037, United States",
+          "name": "South Hall"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9981750,
+          40.7409417
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-03-15T01:47:25Z",
+        "google_maps_url": "http://maps.google.com/?cid=15580567385455061613",
+        "location": {
+          "address": "128 7th Ave, New York, NY 10011, United States",
+          "country_code": "US",
+          "name": "The Commons Chelsea"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -74.0006190,
+          40.7324967
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2025-01-19T16:03:48Z",
+        "google_maps_url": "http://maps.google.com/?cid=15956024354147261571",
+        "location": {
+          "address": "371 6th Ave, New York, NY 10014, United States",
+          "country_code": "US",
+          "name": "St. Joseph's Church in Greenwich Village"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9907524,
+          40.7281186
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-12-14T03:59:56Z",
+        "google_maps_url": "http://maps.google.com/?cid=3885160069769058152",
+        "location": {
+          "address": "35 Cooper Sq, New York, NY 10003, United States",
+          "country_code": "US",
+          "name": "Librae Bakery"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9789883,
+          40.7242498
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-12-09T02:37:03Z",
+        "google_maps_url": "http://maps.google.com/?cid=10675053992018904784",
+        "location": {
+          "address": "107 Loisaida Ave, New York, NY 10009, United States",
+          "country_code": "US",
+          "name": "Ayat East Village"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9854189,
+          40.7271443
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-11-11T22:54:00Z",
+        "google_maps_url": "http://maps.google.com/?cid=14470966753750051075",
+        "location": {
+          "address": "122 1st Ave, New York, NY 10009, United States",
+          "country_code": "US",
+          "name": "MáLà Project"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -74.0041661,
+          40.7510984
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-10-22T23:36:36Z",
+        "google_maps_url": "http://maps.google.com/?cid=14495214515863268301",
+        "location": {
+          "address": "537 W 27th St, New York, NY 10001, United States",
+          "country_code": "US",
+          "name": "Central Rock Gym - Chelsea"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -74.0023208,
+          40.7446831
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-10-14T23:55:35Z",
+        "google_maps_url": "http://maps.google.com/?cid=11997577680579836006",
+        "location": {
+          "address": "166 9th Ave, New York, NY 10011, United States",
+          "country_code": "US",
+          "name": "Milk & Hops"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9909532,
+          40.7332515
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-09-28T02:00:06Z",
+        "google_maps_url": "http://maps.google.com/?cid=6831339393645709888",
+        "location": {
+          "address": "828 Broadway, New York, NY 10003, United States",
+          "country_code": "US",
+          "name": "Strand Book Store"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -74.0010896,
+          40.7278195
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-09-27T22:42:44Z",
+        "google_maps_url": "http://maps.google.com/?cid=11612254168910884162",
+        "location": {
+          "address": "128 W Houston St, New York, NY 10012, United States",
+          "country_code": "US",
+          "name": "Bar Moga"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.8334674,
+          40.7602271
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-06-30T16:55:49Z",
+        "google_maps_url": "http://maps.google.com/?cid=11411540514451733034",
+        "location": {
+          "address": "133-36 37th Ave G17, Flushing, NY 11354, United States",
+          "country_code": "US",
+          "name": "JUQI"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.8333631,
+          40.7591397
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-06-30T16:55:21Z",
+        "google_maps_url": "http://maps.google.com/?cid=8180323147323943950",
+        "location": {
+          "address": "133-30 39th Ave, Flushing, NY 11354, United States",
+          "country_code": "US",
+          "name": "Asian Jewels"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.8324134,
+          40.7595751
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-06-30T16:55:04Z",
+        "google_maps_url": "http://maps.google.com/?cid=2643412766659077252",
+        "location": {
+          "address": "39-16 Prince St #104, Flushing, NY 11354, United States",
+          "country_code": "US",
+          "name": "Nan Xiang Soup Dumplings - Flushing"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9812265,
+          40.7377933
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-03-17T14:50:26Z",
+        "google_maps_url": "http://maps.google.com/?cid=16376522442489434719",
+        "location": {
+          "address": "395 2nd Ave, New York, NY 10010, United States",
+          "country_code": "US",
+          "name": "Orion Diner & Grill"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9751884,
+          40.7871201
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-03-15T01:39:19Z",
+        "google_maps_url": "http://maps.google.com/?cid=14668751988929766946",
+        "location": {
+          "address": "527 Amsterdam Ave, New York, NY 10024, United States",
+          "country_code": "US",
+          "name": "Down & Quilt Shop"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9923380,
+          40.7450340
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-03-13T23:11:43Z",
+        "google_maps_url": "http://maps.google.com/?cid=14695511051463889906",
+        "location": {
+          "address": "114 W 26th St, New York, NY 10001, United States",
+          "country_code": "US",
+          "name": "Buffalo Exchange"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -74.0058945,
+          40.7339353
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-03-13T23:11:07Z",
+        "google_maps_url": "http://maps.google.com/?cid=8316220909571371008",
+        "location": {
+          "address": "245 W 10th St, New York, NY 10014, United States",
+          "country_code": "US",
+          "name": "Housing Works Thrift Shops - West Village"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9831349,
+          40.7301758
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-03-13T23:10:57Z",
+        "google_maps_url": "http://maps.google.com/?cid=9757530975917263674",
+        "location": {
+          "address": "204 1st Ave, New York, NY 10009, United States",
+          "country_code": "US",
+          "name": "L Train Vintage"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9919099,
+          40.7419258
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2024-01-17T05:00:27Z",
+        "google_maps_url": "http://maps.google.com/?cid=8304915803931861874",
+        "location": {
+          "address": "Headquarters, 50 W 23rd St, New York, NY 10010, United States",
+          "country_code": "US",
+          "name": "Kaiyo"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9912661,
+          40.7580525
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2023-12-10T00:36:23Z",
+        "google_maps_url": "http://maps.google.com/?cid=11173445520824791337",
+        "location": {
+          "address": "329 W 42nd St, New York, NY 10036, United States",
+          "country_code": "US",
+          "name": "Holy Cross Church"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9761960,
+          40.7446589
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2023-11-01T01:28:38Z",
+        "google_maps_url": "http://maps.google.com/?cid=1533606800736027423",
+        "location": {
+          "address": "619 2nd Ave, New York, NY 10016, United States",
+          "country_code": "US",
+          "name": "Classic barbershop 5 NYC"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -73.9181649,
+          40.7595165
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2023-06-13T20:39:27Z",
+        "google_maps_url": "http://maps.google.com/?cid=1037247805356489631",
+        "location": {
+          "address": "31-65 Steinway St, Astoria, NY 11103, United States",
+          "country_code": "US",
+          "name": "Diamond Braces Orthodontist: Braces & Invisalign"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-11-28T01:56:14Z",
+        "google_maps_url": "http://maps.google.com/?q=731+Lexington+Avenue,+New+York,+NY+10022&ftid=0x89c258e5980fa543:0xf385896f15e6b79e",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-11-28T01:56:01Z",
+        "google_maps_url": "http://maps.google.com/?q=919+Third+Avenue,+New+York,+NY+10022&ftid=0x89c258e468539b3b:0x80f644ba789584ce",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-11-28T01:55:50Z",
+        "google_maps_url": "http://maps.google.com/?q=120+Park+Ave,+New+York,+NY+10017&ftid=0x89c25907eddf79fb:0xed011b43b592fa2c",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.0573583,
+          42.6229113
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-08-30T00:29:24Z",
+        "google_maps_url": "http://maps.google.com/?cid=1864021211701984498",
+        "location": {
+          "address": "44777 Mound Rd, Sterling Heights, MI 48314, United States",
+          "country_code": "US",
+          "name": "LA Fitness"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -122.3176340,
+          47.6548392
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-06-20T23:50:37Z",
+        "google_maps_url": "http://maps.google.com/?cid=1518113848788979933",
+        "location": {
+          "address": "3925 Adams Ln NE, Seattle, WA 98105, United States",
+          "name": "Mercer Court"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -122.1342236,
+          47.6391613
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-05-10T02:18:07Z",
+        "google_maps_url": "http://maps.google.com/?cid=15009841354657852211",
+        "location": {
+          "address": "15580 NE 31st St, Redmond, WA 98052, United States",
+          "name": "Microsoft Building 43"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -122.1913075,
+          47.7109353
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2022-05-08T06:52:03Z",
+        "google_maps_url": "http://maps.google.com/?cid=10440530296533595557",
+        "location": {
+          "address": "11215 NE 124th St, Kirkland, WA 98034, United States",
+          "country_code": "US",
+          "name": "Courtyard by Marriott Seattle Kirkland"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2021-07-26T03:28:40Z",
+        "google_maps_url": "http://maps.google.com/?q=3584+Sleepy+Fox+Dr,+Rochester+Hills,+MI+48309&ftid=0x8824c1cc07ad3841:0xccfa2a492feff24a",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.2819864,
+          42.7047798
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2019-07-25T15:56:53Z",
+        "google_maps_url": "http://maps.google.com/?cid=6976749222802521981",
+        "location": {
+          "address": "4150 Joslyn Rd, Auburn Hills, MI 48326, United States",
+          "country_code": "US",
+          "name": "The Home Depot"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.1980555,
+          42.6434813
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2019-07-25T15:48:39Z",
+        "google_maps_url": "http://maps.google.com/?cid=8662224225686687396",
+        "location": {
+          "address": "2500 S Adams Rd, Rochester Hills, MI 48309, United States",
+          "country_code": "US",
+          "name": "Walmart Supercenter"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.3760810,
+          42.7222520
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2019-07-25T15:39:55Z",
+        "google_maps_url": "http://maps.google.com/?cid=12921178243686591553",
+        "location": {
+          "address": "5990 Sashabaw Rd, Village of Clarkston, MI 48346, United States",
+          "country_code": "US",
+          "name": "Kroger"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.0434795,
+          42.4485301
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2018-06-24T09:35:54Z",
+        "google_maps_url": "http://maps.google.com/?cid=4989800393278069207",
+        "location": {
+          "address": "20700 Mound Rd, Warren, MI 48091, United States",
+          "country_code": "US",
+          "name": "Tim Hortons"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.1106093,
+          42.5233243
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2015-06-06T19:48:54Z",
+        "google_maps_url": "http://maps.google.com/?cid=11197469700507455767",
+        "location": {
+          "address": "360 W 13 Mile Rd, Madison Heights, MI 48071, United States",
+          "country_code": "US",
+          "name": "Civic Center Park Madison Heights"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.1514034,
+          42.6782504
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2015-05-27T15:35:31Z",
+        "google_maps_url": "http://maps.google.com/?cid=1566881197911289589",
+        "location": {
+          "address": "345 S Livernois Rd, Rochester Hills, MI 48307, United States",
+          "country_code": "US",
+          "name": "Planet Fitness"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.0697606,
+          42.5919051
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2015-05-27T15:35:19Z",
+        "google_maps_url": "http://maps.google.com/?cid=13619496024663929407",
+        "location": {
+          "address": "40752 Ryan Rd, Sterling Heights, MI 48310, United States",
+          "country_code": "US",
+          "name": "Planet Fitness"
+        }
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2015-05-27T15:31:20Z",
+        "google_maps_url": "http://maps.google.com/?q=961+River+Mist+Dr,+Rochester,+MI+48307&ftid=0x8824e83628890123:0x646c3ae5fe9c9ebb",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          0,
+          0
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "date": "2015-05-27T15:31:08Z",
+        "google_maps_url": "http://maps.google.com/?q=5873+Patterson+Dr,+Troy,+MI+48085&ftid=0x8824c3163166b4f1:0x27901bc38f45c818",
+        "Comment": "No location information is available for this saved place"
+      },
+      "type": "Feature"
+    }
+  ]
+}

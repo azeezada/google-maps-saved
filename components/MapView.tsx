@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import type { Place, LabeledPlace, ParsedData, FilterState } from '@/lib/types'
 import { getListColor } from './Sidebar'
 import { SearchBar } from './SearchBar'
@@ -83,6 +83,51 @@ export function MapView({ places, labeledPlaces, data, filters, onFiltersChange,
   const [mapStyleId, setMapStyleId] = useState<MapStyleId>('dark')
   const [styleMenuOpen, setStyleMenuOpen] = useState(false)
   const [flyToast, setFlyToast] = useState<string | null>(null)
+  const [heatmapTimeFilter, setHeatmapTimeFilter] = useState<string | null>(null) // null = all time, "YYYY-MM" for specific month
+  const [isAnimating, setIsAnimating] = useState(false)
+  const animationRef = useRef<number | null>(null)
+  const animationIndexRef = useRef(0)
+
+  // Compute available months from places with dates
+  const availableMonths = useMemo(() => {
+    const months = new Set<string>()
+    for (const p of places) {
+      if (p.date) months.add(p.date.substring(0, 7))
+    }
+    return Array.from(months).sort()
+  }, [places])
+
+  // Animation: cycle through months
+  const toggleAnimation = useCallback(() => {
+    if (isAnimating) {
+      // Stop animation
+      if (animationRef.current) clearInterval(animationRef.current)
+      animationRef.current = null
+      setIsAnimating(false)
+      setHeatmapTimeFilter(null)
+      return
+    }
+
+    if (availableMonths.length < 2) return
+    setIsAnimating(true)
+    animationIndexRef.current = 0
+    setHeatmapTimeFilter(availableMonths[0])
+
+    animationRef.current = window.setInterval(() => {
+      animationIndexRef.current++
+      if (animationIndexRef.current >= availableMonths.length) {
+        animationIndexRef.current = 0
+      }
+      setHeatmapTimeFilter(availableMonths[animationIndexRef.current])
+    }, 1200)
+  }, [isAnimating, availableMonths])
+
+  // Cleanup animation on unmount
+  useEffect(() => {
+    return () => {
+      if (animationRef.current) clearInterval(animationRef.current)
+    }
+  }, [])
 
   // Esc closes the place detail panel and style menu
   useEffect(() => {
@@ -282,9 +327,14 @@ export function MapView({ places, labeledPlaces, data, filters, onFiltersChange,
       labelMarkersRef.current.forEach(m => m.remove())
       labelMarkersRef.current = []
 
-      const validPlaces = places.filter(
+      let validPlaces = places.filter(
         p => p.coordinates.lat !== 0 && p.coordinates.lng !== 0
       )
+
+      // Apply time filter for heatmap animation
+      if (heatmapEnabled && heatmapTimeFilter) {
+        validPlaces = validPlaces.filter(p => p.date && p.date.startsWith(heatmapTimeFilter))
+      }
 
       const bounds: [number, number][] = []
 
@@ -418,7 +468,7 @@ export function MapView({ places, labeledPlaces, data, filters, onFiltersChange,
         map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 })
       }
     })
-  }, [places, labeledPlaces, mapLoaded, clusteringEnabled, heatmapEnabled])
+  }, [places, labeledPlaces, mapLoaded, clusteringEnabled, heatmapEnabled, heatmapTimeFilter])
 
   return (
     <div className="h-full relative" style={{ minHeight: '400px' }}>
@@ -545,6 +595,55 @@ export function MapView({ places, labeledPlaces, data, filters, onFiltersChange,
           {heatmapEnabled ? 'Heatmap' : 'Heatmap'}
         </button>
 
+        {/* Heatmap time slider (only visible when heatmap is on) */}
+        {heatmapEnabled && availableMonths.length >= 2 && (
+          <div
+            className="rounded-lg shadow-lg p-2"
+            style={{ background: 'rgba(30,30,30,0.9)', border: '1px solid rgba(255,255,255,0.15)', minWidth: '140px' }}
+            data-testid="heatmap-time-slider"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <button
+                onClick={toggleAnimation}
+                className="text-xs px-2 py-0.5 rounded-md transition-colors"
+                style={{
+                  background: isAnimating ? 'rgba(168,85,247,0.8)' : 'rgba(255,255,255,0.1)',
+                  color: '#fff',
+                }}
+                data-testid="heatmap-animate-btn"
+              >
+                {isAnimating ? '⏸ Stop' : '▶ Play'}
+              </button>
+              <span className="text-[10px] text-white/70">
+                {heatmapTimeFilter || 'All time'}
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={availableMonths.length}
+              value={heatmapTimeFilter ? availableMonths.indexOf(heatmapTimeFilter) + 1 : 0}
+              onChange={(e) => {
+                const idx = parseInt(e.target.value)
+                if (idx === 0) {
+                  setHeatmapTimeFilter(null)
+                } else {
+                  setHeatmapTimeFilter(availableMonths[idx - 1])
+                }
+                // Stop animation if user manually moves slider
+                if (isAnimating) {
+                  if (animationRef.current) clearInterval(animationRef.current)
+                  animationRef.current = null
+                  setIsAnimating(false)
+                }
+              }}
+              className="w-full h-1 accent-purple-500"
+              style={{ cursor: 'pointer' }}
+              data-testid="heatmap-time-range"
+            />
+          </div>
+        )}
+
         {/* Cluster toggle (only visible when heatmap is off) */}
         {!heatmapEnabled && (
           <button
@@ -564,6 +663,39 @@ export function MapView({ places, labeledPlaces, data, filters, onFiltersChange,
             {clusteringEnabled ? 'Clustered' : 'All pins'}
           </button>
         )}
+
+        {/* Map export as PNG */}
+        <button
+          onClick={async () => {
+            if (!mapRef.current) return
+            try {
+              const html2canvas = (await import('html2canvas')).default
+              const canvas = await html2canvas(mapRef.current, {
+                useCORS: true,
+                allowTaint: true,
+                scale: 2,
+              })
+              const link = document.createElement('a')
+              link.download = `map-export-${new Date().toISOString().slice(0, 10)}.png`
+              link.href = canvas.toDataURL('image/png')
+              link.click()
+            } catch {
+              // fallback: alert user
+              alert('Could not export map. Try again or use a screenshot tool.')
+            }
+          }}
+          title="Export map as PNG"
+          data-testid="map-export-png"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg shadow-lg transition-colors"
+          style={{
+            background: 'rgba(30,30,30,0.85)',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.2)',
+          }}
+        >
+          <span>📷</span>
+          Export
+        </button>
       </div>
 
       {/* Place detail panel */}

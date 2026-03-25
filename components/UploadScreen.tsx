@@ -75,6 +75,7 @@ function AnimatedCounter({ end, duration = 1500 }: { end: number; duration?: num
 export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
   const [statusMsg, setStatusMsg] = useState('')
+  const [parseProgress, setParseProgress] = useState(0) // 0-100
   const [dragOver, setDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const uploadSectionRef = useRef<HTMLDivElement>(null)
@@ -95,12 +96,15 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
 
   const processZip = useCallback(async (file: File, fileName?: string) => {
     setStatus('loading')
+    setParseProgress(0)
     setStatusMsg('Loading ZIP library...')
 
     try {
       const JSZip = (await import('jszip')).default
+      setParseProgress(10)
       setStatusMsg('Reading ZIP file...')
       const zip = await JSZip.loadAsync(file)
+      setParseProgress(20)
       setStatusMsg('Parsing data files...')
 
       let savedPlacesJson: unknown = null
@@ -110,9 +114,17 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
       const csvLists: { name: string; content: string }[] = []
       const photos: PhotoMeta[] = []
 
-      for (const [path, zipEntry] of Object.entries(zip.files)) {
-        if (zipEntry.dir) continue
+      const entries = Object.entries(zip.files).filter(([, e]) => !e.dir)
+      const totalEntries = entries.length
+
+      for (let i = 0; i < entries.length; i++) {
+        const [path, zipEntry] = entries[i]
         const lowerPath = path.toLowerCase()
+
+        // Update progress: 20-80% range for file parsing
+        if (i % 10 === 0 || i === entries.length - 1) {
+          setParseProgress(20 + Math.round((i / totalEntries) * 60))
+        }
 
         if (lowerPath.includes('saved places.json')) {
           const text = await zipEntry.async('string')
@@ -156,6 +168,7 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
         }
       }
 
+      setParseProgress(85)
       setStatusMsg('Computing analytics...')
       if (photos.length > 0) setStatusMsg(`Found ${photos.length} photos...`)
       const parsed = parseAllData({
@@ -166,6 +179,7 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
         csvLists,
       })
       parsed.photos = photos
+      setParseProgress(95)
 
       if (parsed.places.length === 0) {
         setStatus('error')
@@ -173,6 +187,7 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
         return
       }
 
+      setParseProgress(100)
       setStatus('idle')
       onDataLoaded(parsed, fileName ?? file.name)
     } catch (err: unknown) {
@@ -181,22 +196,95 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
     }
   }, [onDataLoaded])
 
+  const processMultipleZips = useCallback(async (files: File[]) => {
+    if (files.length === 0) return
+    if (files.length === 1) {
+      processZip(files[0], files[0].name)
+      return
+    }
+
+    setStatus('loading')
+    setStatusMsg(`Processing ${files.length} ZIP files...`)
+
+    try {
+      const JSZipMod = (await import('jszip')).default
+      const { mergeParsedData } = await import('@/lib/merge')
+      const allParsed: ParsedData[] = []
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+        setStatusMsg(`Parsing file ${i + 1}/${files.length}: ${file.name}...`)
+        const zip = await JSZipMod.loadAsync(file)
+
+        let savedPlacesJson: unknown = null
+        let reviewsJson: unknown = null
+        let labeledPlacesJson: unknown = null
+        let commuteRoutesJson: unknown = null
+        const csvLists: { name: string; content: string }[] = []
+        const photos: PhotoMeta[] = []
+
+        for (const [path, zipEntry] of Object.entries(zip.files)) {
+          if (zipEntry.dir) continue
+          const lowerPath = path.toLowerCase()
+          if (lowerPath.includes('saved places.json')) savedPlacesJson = JSON.parse(await zipEntry.async('string'))
+          if (lowerPath.includes('reviews.json') && lowerPath.includes('maps')) reviewsJson = JSON.parse(await zipEntry.async('string'))
+          if (lowerPath.includes('labeled places.json')) labeledPlacesJson = JSON.parse(await zipEntry.async('string'))
+          if (lowerPath.includes('commute routes.json')) commuteRoutesJson = JSON.parse(await zipEntry.async('string'))
+          if (lowerPath.includes('saved/') && lowerPath.endsWith('.csv')) {
+            csvLists.push({ name: path.split('/').pop() || 'Unknown.csv', content: await zipEntry.async('string') })
+          }
+          if (lowerPath.includes('google photos/') && lowerPath.endsWith('.json')) {
+            try {
+              const json = JSON.parse(await zipEntry.async('string'))
+              const parts = path.split('/')
+              const photosIdx = parts.findIndex(p => p.toLowerCase() === 'google photos')
+              const album = photosIdx >= 0 && parts.length > photosIdx + 2 ? parts[photosIdx + 1] : undefined
+              const meta = parsePhotoSidecar(json, album)
+              if (meta) photos.push(meta)
+            } catch { /* skip */ }
+          }
+        }
+
+        const parsed = parseAllData({ savedPlacesJson, reviewsJson, labeledPlacesJson, commuteRoutesJson, csvLists })
+        parsed.photos = photos
+        allParsed.push(parsed)
+      }
+
+      setStatusMsg('Merging and deduplicating...')
+      const merged = allParsed.length === 1 ? allParsed[0] : mergeParsedData(allParsed)
+
+      if (merged.places.length === 0) {
+        setStatus('error')
+        setStatusMsg('No places found in the uploaded files.')
+        return
+      }
+
+      setStatus('idle')
+      onDataLoaded(merged, files.map(f => f.name).join(', '))
+    } catch (err: unknown) {
+      setStatus('error')
+      setStatusMsg(err instanceof Error ? err.message : 'Failed to parse ZIP files')
+    }
+  }, [processZip, onDataLoaded])
+
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     setDragOver(false)
-    const file = e.dataTransfer.files[0]
-    if (file && (file.name.endsWith('.zip') || file.type === 'application/zip')) {
-      processZip(file, file.name)
+    const files = Array.from(e.dataTransfer.files).filter(
+      f => f.name.endsWith('.zip') || f.type === 'application/zip'
+    )
+    if (files.length > 0) {
+      processMultipleZips(files)
     } else {
       setStatus('error')
-      setStatusMsg('Please upload a ZIP file from Google Takeout')
+      setStatusMsg('Please upload ZIP files from Google Takeout')
     }
-  }, [processZip])
+  }, [processMultipleZips])
 
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) processZip(file, file.name)
-  }, [processZip])
+    const files = Array.from(e.target.files || [])
+    if (files.length > 0) processMultipleZips(files)
+  }, [processMultipleZips])
 
   const handleLoadDemo = useCallback(async () => {
     setStatus('loading')
@@ -428,14 +516,26 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
             ref={fileInputRef}
             type="file"
             accept=".zip"
+            multiple
             onChange={handleFileSelect}
             className="hidden"
           />
 
           {status === 'loading' ? (
-            <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-col items-center gap-3 w-full max-w-xs mx-auto">
               <Loader2 className="w-10 h-10 text-[var(--primary)] animate-spin" />
               <p className="text-sm text-[var(--muted-foreground)]">{statusMsg}</p>
+              {parseProgress > 0 && (
+                <div className="w-full" data-testid="parse-progress">
+                  <div className="w-full h-2 rounded-full bg-[var(--muted)] overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-[var(--primary)] transition-all duration-300 ease-out"
+                      style={{ width: `${parseProgress}%` }}
+                    />
+                  </div>
+                  <p className="text-[10px] text-[var(--muted-foreground)] mt-1 text-center">{parseProgress}%</p>
+                </div>
+              )}
             </div>
           ) : status === 'error' ? (
             <div className="flex flex-col items-center gap-3">
@@ -449,8 +549,8 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
                 <Upload className="w-6 h-6 text-[var(--muted-foreground)]" />
               </div>
               <div>
-                <p className="text-sm font-medium mb-1">Drop your Takeout ZIP here</p>
-                <p className="text-xs text-[var(--muted-foreground)]">or click to browse</p>
+                <p className="text-sm font-medium mb-1">Drop your Takeout ZIP(s) here</p>
+                <p className="text-xs text-[var(--muted-foreground)]">or click to browse · supports multiple files</p>
               </div>
             </div>
           )}

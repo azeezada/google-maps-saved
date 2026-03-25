@@ -13,6 +13,7 @@ import type { Place, LabeledPlace, CommuteRoute, ParsedData, DataStats, Coordina
 import { inferCategory } from './categories'
 import { parsePhotoSidecar } from './photos'
 import { sanitizeString, sanitizeLat, sanitizeLng, sanitizeRating, sanitizeDate, sanitizeUrl, sanitizeTags } from './sanitize'
+import { perfMark, perfMeasure } from './perf'
 
 let idCounter = 0
 function generateId(): string {
@@ -294,6 +295,7 @@ export function parseAllData(input: {
   commuteRoutesJson?: any
   csvLists?: { name: string; content: string }[]
 }): ParsedData {
+  perfMark('parseAllData-start')
   const savedPlaces = input.savedPlacesJson ? parseSavedPlaces(input.savedPlacesJson) : []
   const reviews = input.reviewsJson ? parseReviews(input.reviewsJson) : []
   const labeledPlaces = input.labeledPlacesJson ? parseLabeledPlaces(input.labeledPlacesJson) : []
@@ -320,7 +322,10 @@ export function parseAllData(input: {
   }
   
   const stats = computeStats(savedPlaces.concat(csvPlaces), reviews, labeledPlaces, commuteRoutes)
-  
+
+  perfMark('parseAllData-end')
+  perfMeasure('parseAllData', 'parseAllData-start', 'parseAllData-end')
+
   return {
     places: allPlaces,
     labeledPlaces,

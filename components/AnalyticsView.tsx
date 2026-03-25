@@ -16,6 +16,139 @@ import type { Suggestion } from '@/lib/suggestions'
 import { analyzeTimeOfDay } from '@/lib/timeOfDay'
 import type { TimeOfDayAnalysis } from '@/lib/timeOfDay'
 import { countPlacesWithPhotos, countAllMatchedPhotos } from '@/lib/photos'
+import { withPerf } from '@/lib/perf'
+import { analyzeRatings } from '@/lib/ratings'
+import type { RatingInsights } from '@/lib/ratings'
+import { findDuplicates } from '@/lib/duplicates'
+import type { DuplicateGroup } from '@/lib/duplicates'
+
+// ---------------------------------------------------------------------------
+// Rating Insights Section (defined before AnalyticsView to avoid Turbopack hoisting issues)
+// ---------------------------------------------------------------------------
+function RatingInsightsSection({ insights }: { insights: RatingInsights }) {
+  const tendencyLabel = insights.tendency === 'generous' ? 'Generous Rater' : insights.tendency === 'harsh' ? 'Tough Critic' : 'Balanced Rater'
+  const tendencyColor = insights.tendency === 'generous' ? '#10b981' : insights.tendency === 'harsh' ? '#ef4444' : '#f59e0b'
+
+  return (
+    <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5" data-testid="rating-insights">
+      <h3 className="text-sm font-semibold mb-4 flex items-center gap-2">
+        <span>⭐</span> Rating Insights
+      </h3>
+
+      {/* Summary stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+        <div className="bg-[var(--muted)] rounded-lg p-3 text-center">
+          <p className="text-lg font-bold">{insights.userAverage}</p>
+          <p className="text-[10px] text-[var(--muted-foreground)]">Avg Rating</p>
+        </div>
+        <div className="bg-[var(--muted)] rounded-lg p-3 text-center">
+          <p className="text-lg font-bold">{insights.totalRated}</p>
+          <p className="text-[10px] text-[var(--muted-foreground)]">Reviews</p>
+        </div>
+        <div className="bg-[var(--muted)] rounded-lg p-3 text-center">
+          <p className="text-lg font-bold">{insights.modeRating}★</p>
+          <p className="text-[10px] text-[var(--muted-foreground)]">Most Common</p>
+        </div>
+        <div className="rounded-lg p-3 text-center" style={{ background: `${tendencyColor}20` }}>
+          <p className="text-sm font-bold" style={{ color: tendencyColor }}>{tendencyLabel}</p>
+          <p className="text-[10px] text-[var(--muted-foreground)]">Your Style</p>
+        </div>
+      </div>
+
+      {/* Distribution bar */}
+      <div className="space-y-1.5 mb-4">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">Distribution</p>
+        {[5, 4, 3, 2, 1].map(star => {
+          const count = insights.distribution[star] || 0
+          const pct = insights.totalRated > 0 ? (count / insights.totalRated) * 100 : 0
+          return (
+            <div key={star} className="flex items-center gap-2">
+              <span className="text-xs w-8 text-right">{star}★</span>
+              <div className="flex-1 h-4 bg-[var(--muted)] rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{ width: `${pct}%`, background: star >= 4 ? '#10b981' : star === 3 ? '#f59e0b' : '#ef4444' }}
+                />
+              </div>
+              <span className="text-xs w-8 text-[var(--muted-foreground)]">{count}</span>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Category ratings */}
+      {insights.byCategory.length > 0 && (
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[var(--muted-foreground)] mb-2">Ratings by Category</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {insights.byCategory.slice(0, 6).map(c => (
+              <div key={c.category} className="flex items-center gap-2 bg-[var(--muted)] rounded-lg px-2.5 py-1.5">
+                <span className="text-xs font-medium truncate flex-1">{c.category}</span>
+                <span className="text-xs font-bold">{c.average}★</span>
+                <span className="text-[10px] text-[var(--muted-foreground)]">({c.count})</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Duplicate Detection Section (defined before AnalyticsView to avoid Turbopack hoisting issues)
+// ---------------------------------------------------------------------------
+function DuplicateDetectionSection({ duplicates }: { duplicates: DuplicateGroup[] }) {
+  const [showAll, setShowAll] = useState(false)
+  const displayed = showAll ? duplicates : duplicates.slice(0, 5)
+
+  return (
+    <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5" data-testid="duplicate-detection">
+      <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+        <span>🔄</span> Duplicate Detection
+        <span className="text-[10px] bg-[var(--muted)] px-2 py-0.5 rounded-full text-[var(--muted-foreground)]">
+          {duplicates.length} found
+        </span>
+      </h3>
+      <p className="text-xs text-[var(--muted-foreground)] mb-3">
+        Places saved in multiple lists:
+      </p>
+
+      <div className="space-y-2">
+        {displayed.map((dup, i) => (
+          <div key={i} className="flex items-center gap-3 bg-[var(--muted)] rounded-lg px-3 py-2">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium truncate">{dup.name}</p>
+              <div className="flex flex-wrap gap-1 mt-1">
+                {dup.lists.map(list => (
+                  <span
+                    key={list}
+                    className="text-[10px] px-1.5 py-0.5 rounded-full border border-[var(--border)]"
+                    style={{ background: getListColor(list) + '20', color: getListColor(list) }}
+                  >
+                    {list}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <span className="text-[10px] text-[var(--muted-foreground)] shrink-0">
+              {dup.places.length} entries
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {duplicates.length > 5 && (
+        <button
+          onClick={() => setShowAll(v => !v)}
+          className="mt-3 text-xs text-[var(--primary)] hover:underline"
+        >
+          {showAll ? 'Show less' : `Show all ${duplicates.length} duplicates`}
+        </button>
+      )}
+    </div>
+  )
+}
 
 interface AnalyticsViewProps {
   data: ParsedData
@@ -61,15 +194,17 @@ export function AnalyticsView({ data, filteredPlaces, photoMap }: AnalyticsViewP
     return { byList, byCountry, byCity, byMonth, ratingDist }
   }, [filteredPlaces])
 
-  const neighborhoods = useMemo(() => analyzeNeighborhoods(filteredPlaces), [filteredPlaces])
-  const categories = useMemo(() => analyzeCategories(filteredPlaces), [filteredPlaces])
-  const saveFrequency = useMemo(() => analyzeSaveFrequency(filteredPlaces), [filteredPlaces])
+  const neighborhoods = useMemo(() => withPerf('analyzeNeighborhoods', () => analyzeNeighborhoods(filteredPlaces)), [filteredPlaces])
+  const categories = useMemo(() => withPerf('analyzeCategories', () => analyzeCategories(filteredPlaces)), [filteredPlaces])
+  const saveFrequency = useMemo(() => withPerf('analyzeSaveFrequency', () => analyzeSaveFrequency(filteredPlaces)), [filteredPlaces])
   const distanceAnalyses = useMemo(
     () => analyzeDistances(filteredPlaces, data.labeledPlaces),
     [filteredPlaces, data.labeledPlaces],
   )
   const suggestionsResult = useMemo(() => generateSuggestions(filteredPlaces), [filteredPlaces])
   const timeOfDay = useMemo(() => analyzeTimeOfDay(filteredPlaces), [filteredPlaces])
+  const ratingInsights = useMemo(() => analyzeRatings(filteredPlaces), [filteredPlaces])
+  const duplicates = useMemo(() => findDuplicates(data.places), [data.places])
   const photoStats = useMemo(() => {
     if (!photoMap || photoMap.size === 0) return null
     // Album breakdown: count photos per album
@@ -271,6 +406,16 @@ export function AnalyticsView({ data, filteredPlaces, photoMap }: AnalyticsViewP
             </div>
           )}
         </div>
+      )}
+
+      {/* Rating Insights */}
+      {ratingInsights.totalRated > 0 && (
+        <RatingInsightsSection insights={ratingInsights} />
+      )}
+
+      {/* Duplicate Detection */}
+      {duplicates.length > 0 && (
+        <DuplicateDetectionSection duplicates={duplicates} />
       )}
 
       {/* You Might Like Suggestions */}
@@ -1109,3 +1254,5 @@ function TimeOfDaySection({ analysis }: { analysis: TimeOfDayAnalysis }) {
     </div>
   )
 }
+
+

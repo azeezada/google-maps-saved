@@ -1,9 +1,11 @@
 'use client'
 
-import { Map, List, BarChart3, PanelLeftClose, PanelLeftOpen, Loader2, FileText, FileJson, Plane, Columns2, BookOpen, UtensilsCrossed, CalendarDays, BrainCircuit } from 'lucide-react'
+import { useState } from 'react'
+import { Map, List, BarChart3, PanelLeftClose, PanelLeftOpen, Loader2, FileText, FileJson, Plane, Columns2, BookOpen, UtensilsCrossed, CalendarDays, BrainCircuit, Printer, Download, ChevronDown } from 'lucide-react'
 import type { ViewMode, Place } from '@/lib/types'
 import type { GeocodingProgress } from '@/lib/geocoding'
 import { exportCsv, exportJson, exportFilename } from '@/lib/export'
+import { exportGpx, exportKml } from '@/lib/exportFormats'
 import { MultiFileManager, type LoadedFile } from '@/components/MultiFileManager'
 
 interface HeaderProps {
@@ -49,14 +51,30 @@ export function Header({
   const showGeoProgress =
     geocodingProgress && geocodingProgress.total > 0
 
+  const [exportMenuOpen, setExportMenuOpen] = useState(false)
+
   const handleExportCsv = () => {
     if (!filteredPlacesList || filteredPlacesList.length === 0) return
     exportCsv(filteredPlacesList, exportFilename('places', 'csv'))
+    setExportMenuOpen(false)
   }
 
   const handleExportJson = () => {
     if (!filteredPlacesList || filteredPlacesList.length === 0) return
     exportJson(filteredPlacesList, exportFilename('places', 'json'))
+    setExportMenuOpen(false)
+  }
+
+  const handleExportGpx = () => {
+    if (!filteredPlacesList || filteredPlacesList.length === 0) return
+    exportGpx(filteredPlacesList, exportFilename('places', 'gpx'))
+    setExportMenuOpen(false)
+  }
+
+  const handleExportKml = () => {
+    if (!filteredPlacesList || filteredPlacesList.length === 0) return
+    exportKml(filteredPlacesList, exportFilename('places', 'kml'))
+    setExportMenuOpen(false)
   }
 
   const hasPlaces = filteredPlacesList && filteredPlacesList.length > 0
@@ -131,29 +149,45 @@ export function Header({
             />
           </div>
         )}
-        {/* Export buttons */}
+        {/* Export dropdown */}
         {filteredPlacesList !== undefined && (
-          <div className="flex items-center gap-1">
+          <div className="relative">
             <button
-              onClick={handleExportCsv}
+              onClick={() => setExportMenuOpen(v => !v)}
               disabled={!hasPlaces}
-              title={hasPlaces ? `Export ${filteredPlaces} places as CSV` : 'No places to export'}
+              title={hasPlaces ? `Export ${filteredPlaces} places` : 'No places to export'}
               data-testid="header-export-csv"
               className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1.5 rounded-md text-xs font-medium bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              <FileText className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">CSV</span>
+              <Download className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Export</span>
+              <ChevronDown className="w-3 h-3" />
             </button>
-            <button
-              onClick={handleExportJson}
-              disabled={!hasPlaces}
-              title={hasPlaces ? `Export ${filteredPlaces} places as JSON` : 'No places to export'}
-              data-testid="header-export-json"
-              className="flex items-center gap-1 px-1.5 sm:px-2.5 py-1.5 rounded-md text-xs font-medium bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <FileJson className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">JSON</span>
-            </button>
+
+            {exportMenuOpen && (
+              <div
+                data-testid="export-menu"
+                className="absolute top-full right-0 mt-1 w-44 rounded-xl border border-[var(--border)] bg-[var(--card)] shadow-lg z-50 py-1"
+                onMouseLeave={() => setExportMenuOpen(false)}
+              >
+                <button onClick={handleExportCsv} data-testid="header-export-csv-btn" className="w-full flex items-center gap-2 px-3 py-2 text-xs text-left hover:bg-[var(--muted)] transition-colors">
+                  <FileText className="w-3.5 h-3.5" /> CSV
+                </button>
+                <button onClick={handleExportJson} data-testid="header-export-json" className="w-full flex items-center gap-2 px-3 py-2 text-xs text-left hover:bg-[var(--muted)] transition-colors">
+                  <FileJson className="w-3.5 h-3.5" /> JSON
+                </button>
+                <button onClick={handleExportGpx} data-testid="header-export-gpx" className="w-full flex items-center gap-2 px-3 py-2 text-xs text-left hover:bg-[var(--muted)] transition-colors">
+                  <FileText className="w-3.5 h-3.5" /> GPX (Hiking apps)
+                </button>
+                <button onClick={handleExportKml} data-testid="header-export-kml" className="w-full flex items-center gap-2 px-3 py-2 text-xs text-left hover:bg-[var(--muted)] transition-colors">
+                  <FileText className="w-3.5 h-3.5" /> KML (Google Earth)
+                </button>
+                <div className="border-t border-[var(--border)] my-1" />
+                <button onClick={() => { window.print(); setExportMenuOpen(false) }} data-testid="header-print" className="w-full flex items-center gap-2 px-3 py-2 text-xs text-left hover:bg-[var(--muted)] transition-colors">
+                  <Printer className="w-3.5 h-3.5" /> Print / PDF
+                </button>
+              </div>
+            )}
           </div>
         )}
 

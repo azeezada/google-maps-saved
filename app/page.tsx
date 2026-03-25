@@ -26,6 +26,7 @@ import {
 } from '@/lib/geocoding'
 import { mergeParsedData } from '@/lib/merge'
 import { MultiFileManager, type LoadedFile } from '@/components/MultiFileManager'
+import { saveOfflineData } from '@/lib/offlineStorage'
 
 /** Returns true if the current window is below the 'sm' breakpoint (640px). */
 function useIsMobile() {
@@ -94,6 +95,20 @@ export default function Home() {
   const [geocodingProgress, setGeocodingProgress] = useState<GeocodingProgress | null>(null)
   const cancelGeocodingRef = useRef<(() => void) | null>(null)
 
+  // Register service worker for offline support
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {
+        // SW registration failed — not critical
+      })
+    }
+  }, [])
+
+  // Offline data is saved to IndexedDB via saveOfflineData() when data is loaded,
+  // and served by the service worker for offline access. We intentionally do NOT
+  // auto-restore from IndexedDB on mount to avoid interfering with the normal
+  // upload flow (users should always see the upload screen on fresh page load).
+
   // Global keyboard shortcuts (only when data is loaded):
   // - Cmd+K: switch to map view and focus search
   // - Esc: close sidebar on mobile
@@ -135,6 +150,8 @@ export default function Home() {
   const handleDataLoaded = useCallback((parsedData: ParsedData, fileName?: string) => {
     setData(parsedData)
     setLoadedFiles([{ name: fileName ?? 'demo-data', data: parsedData, placeCount: parsedData.places.length }])
+    // Cache data for offline access
+    saveOfflineData(parsedData).catch(() => {})
     setResolvedCoords({})
     setGeocodingProgress(null)
     if (cancelGeocodingRef.current) {

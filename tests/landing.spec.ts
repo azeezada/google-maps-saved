@@ -41,6 +41,6 @@ test.describe('Magic UI Landing Page', () => {
     // Click it — should scroll to the upload section
     await uploadBtn.click()
     // After scrolling, the upload zone should be in viewport (or at least rendered)
-    await expect(page.getByText('Drop your Takeout ZIP here')).toBeVisible()
+    await expect(page.getByText(/Drop your Takeout ZIP/)).toBeVisible()
   })
 })

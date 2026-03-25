@@ -5,7 +5,7 @@ test.describe('Google Maps Saved Places Analyzer — Smoke Tests', () => {
     await page.goto('/')
     
     // Should show upload screen with key elements
-    await expect(page.getByText('Drop your Takeout ZIP here')).toBeVisible()
+    await expect(page.getByText(/Drop your Takeout ZIP/)).toBeVisible()
     await expect(page.getByText('Load demo data instead →')).toBeVisible()
     await expect(page.getByText('How to export your data')).toBeVisible()
     await expect(page.getByText('takeout.google.com')).toBeVisible()

@@ -8,7 +8,7 @@ test.describe('ZIP upload flow', () => {
     await page.goto('/')
 
     // Upload screen should be visible
-    await expect(page.getByText('Drop your Takeout ZIP here')).toBeVisible()
+    await expect(page.getByText(/Drop your Takeout ZIP/)).toBeVisible()
 
     // Use the hidden file input to upload our fixture ZIP
     const fileInput = page.locator('input[type="file"][accept=".zip"]')
@@ -103,7 +103,7 @@ test.describe('ZIP upload flow', () => {
     // Note: file input has accept=".zip" so we test the drag/drop error path
     // by evaluating a JS drop event with a non-zip file
     await page.goto('/')
-    await expect(page.getByText('Drop your Takeout ZIP here')).toBeVisible()
+    await expect(page.getByText(/Drop your Takeout ZIP/)).toBeVisible()
 
     // Simulate drop with wrong file type via JS
     await page.evaluate(() => {
@@ -123,6 +123,6 @@ test.describe('ZIP upload flow', () => {
     })
 
     // Error message should appear
-    await expect(page.getByText(/Please upload a ZIP file/i)).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(/Please upload ZIP files/i)).toBeVisible({ timeout: 5000 })
   })
 })

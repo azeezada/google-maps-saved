@@ -90,14 +90,14 @@ export function MultiFileManager({ files, onFileAdded, onFileRemoved }: MultiFil
 
   const handleFileSelect = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0]
-      if (!file) return
+      const selectedFiles = Array.from(e.target.files || [])
       // Reset input so same file can be re-selected
       e.target.value = ''
 
-      if (!file.name.endsWith('.zip') && file.type !== 'application/zip') {
+      const zipFiles = selectedFiles.filter(f => f.name.endsWith('.zip') || f.type === 'application/zip')
+      if (zipFiles.length === 0) {
         setStatus('error')
-        setErrorMsg('Please select a ZIP file.')
+        setErrorMsg('Please select ZIP file(s).')
         return
       }
 
@@ -105,8 +105,10 @@ export function MultiFileManager({ files, onFileAdded, onFileRemoved }: MultiFil
       setErrorMsg('')
 
       try {
-        const parsed = await processZipFile(file)
-        onFileAdded({ name: file.name, data: parsed, placeCount: parsed.places.length })
+        for (const file of zipFiles) {
+          const parsed = await processZipFile(file)
+          onFileAdded({ name: file.name, data: parsed, placeCount: parsed.places.length })
+        }
         setStatus('idle')
         setIsExpanded(true)
       } catch (err) {
@@ -211,6 +213,7 @@ export function MultiFileManager({ files, onFileAdded, onFileRemoved }: MultiFil
             ref={fileInputRef}
             type="file"
             accept=".zip"
+            multiple
             className="hidden"
             onChange={handleFileSelect}
             data-testid="multi-file-input"

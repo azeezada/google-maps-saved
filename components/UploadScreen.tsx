@@ -204,6 +204,7 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
     }
 
     setStatus('loading')
+    setParseProgress(0)
     setStatusMsg(`Processing ${files.length} ZIP files...`)
 
     try {
@@ -213,7 +214,12 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
-        setStatusMsg(`Parsing file ${i + 1}/${files.length}: ${file.name}...`)
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(1)
+        setStatusMsg(`Parsing file ${i + 1}/${files.length}: ${file.name} (${sizeMB} MB)...`)
+        // Spread 10–85% evenly across files; each file gets a slice
+        const sliceSize = 75 / files.length
+        const fileStart = 10 + i * sliceSize
+        setParseProgress(Math.round(fileStart))
         const zip = await JSZipMod.loadAsync(file)
 
         let savedPlacesJson: unknown = null
@@ -248,8 +254,11 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
         const parsed = parseAllData({ savedPlacesJson, reviewsJson, labeledPlacesJson, commuteRoutesJson, csvLists })
         parsed.photos = photos
         allParsed.push(parsed)
+        // Mark this file complete in the progress bar
+        setParseProgress(Math.round(10 + (i + 1) * sliceSize))
       }
 
+      setParseProgress(90)
       setStatusMsg('Merging and deduplicating...')
       const merged = allParsed.length === 1 ? allParsed[0] : mergeParsedData(allParsed)
 
@@ -259,6 +268,7 @@ export function UploadScreen({ onDataLoaded }: UploadScreenProps) {
         return
       }
 
+      setParseProgress(100)
       setStatus('idle')
       onDataLoaded(merged, files.map(f => f.name).join(', '))
     } catch (err: unknown) {
